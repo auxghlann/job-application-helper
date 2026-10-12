@@ -22,6 +22,3 @@ Desktop.ini
 # Internal assistant guidelines
 rules/AGENT.md
 AGENT.md
-
-# Ignored plugin directory for now
-.antigravity-plugin/
