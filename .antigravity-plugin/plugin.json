@@ -1,0 +1,22 @@
+{
+  "name": "job-application-helper",
+  "displayName": "Job Application Helper",
+  "version": "1.0.0",
+  "description": "ATS-optimized Typst resumes, authentic cover letters, and structured interview coaching for Google Antigravity.",
+  "category": "Productivity",
+  "keywords": [
+    "job-application",
+    "resume",
+    "typst",
+    "cover-letter",
+    "career",
+    "interview-coach"
+  ],
+  "author": {
+    "name": "Khester Mesa",
+    "email": "khestermesa@gmail.com"
+  },
+  "homepage": "https://github.com/auxghlann/job-application-helper",
+  "repository": "https://github.com/auxghlann/job-application-helper",
+  "license": "MIT"
+}
