@@ -1,0 +1,27 @@
+# User private profile, career stories, and active application records
+data/candidate-profile.yaml
+data/star-stories.md
+data/applications.csv
+
+# Compiled documents and application output folders
+output/
+bin/
+
+# Temporary Typst / PDF build artifacts
+*.pdf
+*.log
+*.tmp
+
+# OS and Editor files
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Internal assistant guidelines
+rules/AGENT.md
+AGENT.md
+
+# Ignored plugin directory for now
+.antigravity-plugin/

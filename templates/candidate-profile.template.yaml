@@ -1,0 +1,111 @@
+# Candidate Master Profile (Single Source of Truth)
+# All resume tailoring, cover letter generation, and interview coaching
+# must strictly ground statements in the facts defined in this document.
+
+personal:
+  full_name: "Your Name"
+  title: "Software Engineer / Full-Stack Developer"
+  email: "your.email@example.com"
+  phone: "+63 900 000 0000"
+  location: "Manila, Philippines (or Remote)"
+  linkedin: "https://linkedin.com/in/yourprofile"
+  github: "https://github.com/yourprofile"
+  portfolio: "https://yourportfolio.dev"
+
+summary: >
+  Experienced software developer with focus on modern web ecosystems,
+  backend architecture, and automated workflows. Proven track record
+  of shipping maintainable code, optimizing developer experience, and
+  integrating AI agent workflows.
+
+preferences:
+  target_roles:
+    - "Senior Full-Stack Engineer"
+    - "Frontend Developer"
+    - "AI Solutions Engineer"
+  work_arrangement: "Remote or Hybrid"
+  locations_preferred:
+    - "Remote (Global)"
+    - "Philippines"
+    - "Singapore / APAC"
+  salary_expectations: "Competitive / Market Rate"
+
+skills:
+  languages:
+    - "TypeScript"
+    - "JavaScript (ESNext)"
+    - "Python"
+    - "HTML5 / CSS3"
+    - "SQL"
+  frameworks_libraries:
+    - "React"
+    - "Next.js"
+    - "Tailwind CSS"
+    - "Node.js"
+    - "FastAPI"
+  tools_platforms:
+    - "Git / GitHub"
+    - "Playwright"
+    - "Docker"
+    - "PostgreSQL"
+    - "Supabase"
+    - "Vercel"
+  methodologies:
+    - "Test-Driven Development (TDD)"
+    - "Component-Driven Architecture"
+    - "Continuous Integration (CI/CD)"
+    - "REST API Design"
+
+experience:
+  - company: "Example Tech Inc."
+    role: "Full-Stack Engineer"
+    location: "Remote"
+    start_date: "2023-01"
+    end_date: "Present"
+    current: true
+    highlights:
+      - "Engineered responsive web applications using Next.js and TypeScript, serving 50k+ monthly active users."
+      - "Reduced initial page load time by 38% through route optimization and dynamic code splitting."
+      - "Built resilient automated test suites with Playwright, catching regressions before production release."
+    technologies:
+      - "Next.js"
+      - "TypeScript"
+      - "Tailwind CSS"
+      - "Playwright"
+      - "PostgreSQL"
+
+  - company: "Innovate Labs"
+    role: "Frontend Developer"
+    location: "Manila, Philippines"
+    start_date: "2021-06"
+    end_date: "2022-12"
+    current: false
+    highlights:
+      - "Developed interactive UI components and dashboard analytics with React and Chart.js."
+      - "Collaborated with UX designers to establish an accessible design token system adhering to WCAG 2.1 AA standards."
+    technologies:
+      - "React"
+      - "JavaScript"
+      - "Tailwind CSS"
+      - "Chart.js"
+
+projects:
+  - name: "ATS Job Application Automation"
+    url: "https://github.com/yourprofile/job-automation"
+    description: "Automated candidate application tracker and resume generator."
+    highlights:
+      - "Designed declarative YAML profile schema to prevent AI hallucinations during resume generation."
+      - "Integrated automated LaTeX compilation pipeline producing clean, ATS-compliant PDF resumes."
+    technologies:
+      - "TypeScript"
+      - "LaTeX"
+      - "Node.js"
+
+education:
+  - institution: "University Name"
+    degree: "Bachelor of Science in Computer Science"
+    location: "Philippines"
+    graduation_year: "2021"
+    honors: ""
+
+certifications: []
