@@ -76,7 +76,7 @@ When executing job application tasks, delegate to the appropriate specialized su
    - **Mandatory Review Plan Gate**: Author an implementation plan artifact containing the complete 1:1 drafted content (verbatim summary, skills, experience bullets, and projects) and request user feedback (`RequestFeedback: true`).
    - Halt execution until the user reviews and approves the plan.
    - Once approved, populate `templates/resume/modern-clean.typ` and save to `output/<company_name>/resume_<company_name>.typ`.
-   - Execute `compile-typst.ps1` to produce `output/<company_name>/resume_<company_name>.pdf`.
+   - Delegate compilation to the `typst-pdf` skill to produce `output/<company_name>/resume_<company_name>.pdf`.
 3. Prompt candidate: *"Did you submit your application to [Company] for [Role]?"*
    - If yes, invoke `application-tracker` to log record in `data/applications.csv`.
 
@@ -90,7 +90,7 @@ When executing job application tasks, delegate to the appropriate specialized su
    - **Mandatory Review Plan Gate**: Author an implementation plan artifact containing the complete 1:1 drafted cover letter text verbatim and request user feedback (`RequestFeedback: true`).
    - Halt execution until the user reviews and approves the letter.
    - Once approved, populate `templates/cover-letter/clean-letter.typ` and save to `output/<company_name>/cover_letter_<company_name>.typ`.
-   - Compile via `compile-typst.ps1` to `output/<company_name>/cover_letter_<company_name>.pdf`.
+   - Delegate compilation to the `typst-pdf` skill to produce `output/<company_name>/cover_letter_<company_name>.pdf`.
 
 ### Runbook D: Pipeline Tracking (`applications.csv`)
 1. All applications are tracked in `data/applications.csv` (RFC 4180 CSV compliant).
@@ -129,13 +129,20 @@ job-application-helper/
 │   ├── star-stories.template.md        # STAR story starter template
 │   ├── applications.template.csv       # Pipeline tracker starter template
 │   ├── resume/modern-clean.typ         # Single-column ATS Typst resume template
-│   └── cover-letter/clean-letter.typ   # Clean matching Typst cover letter template
+│   ├── cover-letter/clean-letter.typ   # Clean matching Typst cover letter template
+│   └── crawl-report/job-leads-digest.typ # Crawled job openings digest template
+├── skills/
+│   ├── typst-pdf/                      # Generic Typst compilation & PDF export skill
+│   │   ├── SKILL.md
+│   │   └── scripts/compile.ps1
+│   ├── get-to-know-me/SKILL.md         # Candidate onboarding interview & import
+│   └── job-application-helper/SKILL.md # Domain guide & dispatch runbooks
 ├── data/                               # Private candidate data (git-ignored)
 │   ├── candidate-profile.yaml          # Master profile (single source of truth)
 │   ├── star-stories.md                 # Behavioral interview anecdotes (STAR)
 │   └── applications.csv                # Central pipeline tracker
 ├── scripts/
-│   ├── compile-typst.ps1               # Typst automated compiler
+│   ├── compile-typst.ps1               # Typst compiler wrapper
 │   └── init-profile.ps1                # Profile initialization helper (copies from templates/)
 ├── agents/                             # Subagent prompt specifications
 └── rules/AGENTS.md                     # Domain directives and prompt contracts

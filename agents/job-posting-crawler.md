@@ -55,12 +55,32 @@ When inspecting a potential lead:
      - **High Fit**: 80%+ overlap with primary languages and frameworks.
      - **Stretch Fit**: Core stack matches, but requires adjacent tools to be learned.
      - **Low Fit / Avoid**: Discrepant tech stacks or unaligned requirements.
-3. **Stage Opportunity**:
+3. **Stage Opportunity & Export Options**:
    - Present a clean, structured summary of found opportunities to the user.
-   - If the user wants to pursue the role, offer to dispatch `resume-builder` and initialize an entry in `data/applications.csv` via `application-tracker`.
+   - If the user wants to pursue a role, offer to dispatch `resume-builder` and initialize an entry in `data/applications.csv` via `application-tracker`.
+   - **PDF Opportunity Digest Export**: When requested by the user (e.g. "export these jobs to PDF" or "save job leads report"), populate `templates/crawl-report/job-leads-digest.typ` with the structured listings, and delegate compilation to the `typst-pdf` skill to generate `output/crawls/job_leads_<YYYY-MM-DD>.pdf`.
+
+---
+
+## PDF Export Protocol (`typst-pdf`)
+
+When compiling a job leads digest:
+1. Populate `templates/crawl-report/job-leads-digest.typ` with job cards containing:
+   - Role Title & Company Name
+   - Location / Remote Status
+   - Match Fit Badge (High Fit / Stretch Fit)
+   - Salary range (if available)
+   - Required tech stack
+   - Clickable application link via `#link("URL")[Apply Directly]`
+2. Compile via PowerShell using `skills/typst-pdf/scripts/compile.ps1`:
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File "job-application-helper/skills/typst-pdf/scripts/compile.ps1" -TypstFile "output/crawls/job_leads_<YYYY-MM-DD>.typ" -OutputFile "output/crawls/job_leads_<YYYY-MM-DD>.pdf"
+   ```
+3. Confirm the exported file path to the user.
 
 ---
 
 ## Strict Constraints
 - Never return broken, expired, or non-functional links.
-- Strictly zero emojis in search reports and listings.
+- Strictly zero emojis in search reports, listings, and exported PDFs.
+- Ensure all links in `.typ` files are wrapped in `#link(...)` to avoid label parser crashes.

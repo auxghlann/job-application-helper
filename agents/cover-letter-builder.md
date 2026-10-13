@@ -73,10 +73,10 @@ Keep the cover letter brief, punchy, and strictly within **200 to 280 words** (m
    - **STRICT REQUIREMENT**: Do NOT touch `.typ` files or run compilers until the user explicitly reviews and approves the letter content.
 5. **Populate Typst Template**:
    - Once approved, populate `templates/cover-letter/clean-letter.typ` with the approved text and save to `output/<company_name>/cover_letter_<company_name>.typ`.
-6. **Compile to PDF**:
-   - Run compilation via PowerShell:
+6. **Compile to PDF (via `typst-pdf` skill)**:
+   - Delegate PDF compilation to the `typst-pdf` skill via PowerShell:
      ```powershell
-     powershell -ExecutionPolicy Bypass -File "job-application-helper/scripts/compile-typst.ps1" -TypstFile "output/<company_name>/cover_letter_<company_name>.typ" -OutputFile "output/<company_name>/cover_letter_<company_name>.pdf"
+     powershell -ExecutionPolicy Bypass -File "job-application-helper/skills/typst-pdf/scripts/compile.ps1" -TypstFile "output/<company_name>/cover_letter_<company_name>.typ" -OutputFile "output/<company_name>/cover_letter_<company_name>.pdf"
      ```
    - Verify that the resulting `cover_letter_<company_name>.pdf` exists.
 7. **Prompt for Application Tracking**:

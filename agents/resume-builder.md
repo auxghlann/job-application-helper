@@ -70,10 +70,10 @@ All generated files must strictly follow the standardized naming convention:
    - Once approved, read `templates/resume/modern-clean.typ`.
    - Replace placeholders with the candidate's authentic information and approved tailored bullets.
    - Save source to `output/<company_name>/resume_<company_name>.typ`.
-6. **Compile to PDF**:
-   - Run compilation via PowerShell:
+6. **Compile to PDF (via `typst-pdf` skill)**:
+   - Delegate PDF compilation to the `typst-pdf` skill via PowerShell:
      ```powershell
-     powershell -ExecutionPolicy Bypass -File "job-application-helper/scripts/compile-typst.ps1" -TypstFile "output/<company_name>/resume_<company_name>.typ" -OutputFile "output/<company_name>/resume_<company_name>.pdf"
+     powershell -ExecutionPolicy Bypass -File "job-application-helper/skills/typst-pdf/scripts/compile.ps1" -TypstFile "output/<company_name>/resume_<company_name>.typ" -OutputFile "output/<company_name>/resume_<company_name>.pdf"
      ```
    - Verify that the resulting `resume_<company_name>.pdf` exists.
 7. **Prompt for Application Tracking**:
