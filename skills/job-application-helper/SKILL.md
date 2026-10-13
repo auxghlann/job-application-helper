@@ -70,24 +70,27 @@ When executing job application tasks, delegate to the appropriate specialized su
 ### Runbook B: Tailoring Resume & Compiling PDF
 1. Ingest target job description text.
 2. Dispatch `resume-builder`:
-   - Match candidate skills and experience against JD keywords.
-   - Strictly forbid fabricating unverified skills or metrics. Flag any missing skills honestly.
+   - Inspect both `data/candidate-profile.yaml` and `data/star-stories.md`.
+   - Match candidate skills and verified experience against JD keywords.
+   - Strictly forbid fabricating unverified skills, employers, or inflated metrics. Flag any missing skills honestly.
    - **Mandatory Review Plan Gate**: Author an implementation plan artifact containing the complete 1:1 drafted content (verbatim summary, skills, experience bullets, and projects) and request user feedback (`RequestFeedback: true`).
    - Halt execution until the user reviews and approves the plan.
-   - Once approved, populate `templates/resume/modern-clean.typ` and save to `output/<company-normalized>/resume.typ`.
-   - Execute `compile-typst.ps1` to produce `output/<company-normalized>/resume.pdf`.
+   - Once approved, populate `templates/resume/modern-clean.typ` and save to `output/<company_name>/resume_<company_name>.typ`.
+   - Execute `compile-typst.ps1` to produce `output/<company_name>/resume_<company_name>.pdf`.
 3. Prompt candidate: *"Did you submit your application to [Company] for [Role]?"*
    - If yes, invoke `application-tracker` to log record in `data/applications.csv`.
 
 ### Runbook C: Authoring Authentic Cover Letters
 1. Ingest target job description text and company mission.
 2. Dispatch `cover-letter-builder`:
-   - Draft a 4-paragraph letter (Hook -> Engineering Match -> Project Alignment -> Forward Close).
-   - Strictly ban AI clichés (*"I am writing to express my enthusiasm..."*).
+   - Ground the letter strictly in `data/candidate-profile.yaml` and `data/star-stories.md`.
+   - Draft a compressed 3-4 paragraph letter (under 280 words total: Hook -> Core Engineering Match -> Alignment & Forward Close).
+   - Strictly ban AI clichés (*"I am writing to express my enthusiasm..."*) and hype buzzwords (*"spearhead"*, *"leverage"*, *"cutting-edge"*, *"robust"*).
+   - Ensure text uses full justification (`#set par(justify: true)`).
    - **Mandatory Review Plan Gate**: Author an implementation plan artifact containing the complete 1:1 drafted cover letter text verbatim and request user feedback (`RequestFeedback: true`).
    - Halt execution until the user reviews and approves the letter.
-   - Once approved, populate `templates/cover-letter/clean-letter.typ`.
-   - Compile via `compile-typst.ps1` to `output/<company-normalized>/cover-letter.pdf`.
+   - Once approved, populate `templates/cover-letter/clean-letter.typ` and save to `output/<company_name>/cover_letter_<company_name>.typ`.
+   - Compile via `compile-typst.ps1` to `output/<company_name>/cover_letter_<company_name>.pdf`.
 
 ### Runbook D: Pipeline Tracking (`applications.csv`)
 1. All applications are tracked in `data/applications.csv` (RFC 4180 CSV compliant).

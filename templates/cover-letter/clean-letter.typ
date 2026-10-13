@@ -12,7 +12,7 @@
   lang: "en",
 )
 
-#set par(justify: false, leading: 0.7em)
+#set par(justify: true, leading: 0.7em)
 
 // Header
 #text(size: 20pt, weight: "bold")[CANDIDATE_NAME] \
@@ -39,22 +39,19 @@ DATE_PLACEHOLDER
 COMPANY_NAME \
 COMPANY_LOCATION
 
-#v(16pt)
+#v(14pt)
 
 Dear Hiring Team,
 
 HOOK_PARAGRAPH_PLACEHOLDER
 
 #v(10pt)
-EXPERIENCE_ALIGNMENT_PARAGRAPH_PLACEHOLDER
-
-#v(10pt)
-PROJECT_OR_IMPACT_PARAGRAPH_PLACEHOLDER
+EXPERIENCE_AND_PROJECT_ALIGNMENT_PARAGRAPH_PLACEHOLDER
 
 #v(10pt)
 CALL_TO_ACTION_PARAGRAPH_PLACEHOLDER
 
-#v(20pt)
-Sincerely, \
 #v(18pt)
+Sincerely, \
+#v(16pt)
 *CANDIDATE_NAME*
