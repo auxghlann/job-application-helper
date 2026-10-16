@@ -19,15 +19,17 @@ summary: >
   integrating AI agent workflows.
 
 preferences:
+  seniority_level: "Senior" # e.g., Entry-Level / Junior, Mid-Level, Senior, Staff / Lead
+  years_of_experience: "5+ years"
   target_roles:
     - "Senior Full-Stack Engineer"
     - "Frontend Developer"
     - "AI Solutions Engineer"
   work_arrangement: "Remote or Hybrid"
   locations_preferred:
-    - "Remote (Global)"
-    - "Philippines"
-    - "Singapore / APAC"
+    - "Manila, Philippines"
+    - "Remote (APAC / Global)"
+    - "Singapore"
   salary_expectations: "Competitive / Market Rate"
 
 skills:
@@ -92,20 +94,36 @@ experience:
 projects:
   - name: "ATS Job Application Automation"
     url: "https://github.com/yourprofile/job-automation"
+    stack: "TypeScript, Typst, Node.js, PowerShell"
+    tags:
+      - "developer-tools"
+      - "automation"
     description: "Automated candidate application tracker and resume generator."
     highlights:
       - "Designed declarative YAML profile schema to prevent AI hallucinations during resume generation."
-      - "Integrated automated LaTeX compilation pipeline producing clean, ATS-compliant PDF resumes."
+      - "Integrated automated Typst compilation pipeline producing clean, ATS-compliant PDF resumes."
     technologies:
       - "TypeScript"
-      - "LaTeX"
+      - "Typst"
       - "Node.js"
 
 education:
   - institution: "University Name"
     degree: "Bachelor of Science in Computer Science"
     location: "Philippines"
-    graduation_year: "2021"
-    honors: ""
+    graduation_year: "2024"
+    gwa: "94.42%"
+    honors: "Cum Laude"
 
-certifications: []
+certifications:
+  - name: "Associate Data Engineer in SQL"
+    issuer: "DataCamp"
+    year: "2026"
+    credential_id: ""
+    url: ""
+  - name: "Associate Python Developer"
+    issuer: "DataCamp"
+    year: "2025"
+    credential_id: ""
+    url: ""
+

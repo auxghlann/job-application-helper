@@ -32,5 +32,5 @@ Use this document to store verified, authentic career stories following the STAR
 - **Company / Project**: ATS Job Application Automation
 - **Situation**: Needed to generate pixel-perfect ATS-compliant resumes programmatically without manual graphic design tools.
 - **Task**: Build an automated compilation pipeline producing clean PDF outputs from structured data.
-- **Action**: Evaluated modern CLI compilers, adopted standalone Tectonic engine with single-column LaTeX templates, and scripted automated builds in PowerShell.
-- **Result**: Generated compliant, single-column PDF resumes in under 3 seconds per run, eliminating manual document formatting.
+- **Action**: Evaluated modern CLI compilers, adopted standalone Typst CLI engine with single-column ATS templates, and scripted automated builds in PowerShell.
+- **Result**: Generated compliant, single-column PDF resumes in under 2 seconds per run, eliminating manual document formatting.
