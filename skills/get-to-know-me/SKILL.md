@@ -32,7 +32,7 @@ Best when the candidate already has an existing resume (PDF, Word, Markdown, or 
      - Education (Degrees, Institutions, Graduation Years).
      - Categorized Skills (Languages, Frameworks, Tools, Methodologies).
 3. **Populate Candidate Profile**:
-   - Write the extracted information cleanly into `data/candidate-profile.yaml`.
+   - Write the extracted information cleanly into `data/candidate-profile.yaml`, including `preferences.seniority_level` (e.g., `Entry-Level / Junior`, `Mid-Level`, `Senior`, `Staff / Lead`) and `preferences.years_of_experience`.
 4. **Transition to Targeted Enrichment**:
    - Proceed to the Targeted Enrichment & STAR Mining section below.
 
@@ -45,8 +45,9 @@ Run the interview across 4 bite-sized conversational phases (one phase at a time
 
 #### Phase 1: Identity & Target Horizon
 - What is your full name, location, and preferred contact details?
-- What specific job titles/roles are you targeting (e.g., Senior Full-Stack Engineer, AI Solutions Engineer)?
-- What is your preferred work arrangement (Remote, Hybrid, Onsite) and location limits?
+- What is your current seniority band and total years of experience (e.g., Entry-Level / Junior 0-2 yrs, Mid-Level 2-5 yrs, Senior 5+ yrs)?
+- What specific job titles/roles are you targeting (e.g., Junior Data Engineer, Senior Full-Stack Engineer, AI Solutions Engineer)?
+- What is your preferred work arrangement (Remote, Hybrid, Onsite) and prioritized locations (`locations_preferred`, ordered from highest priority to broadest)?
 - What are your compensation / salary expectations?
 
 #### Phase 2: Technical Arsenal & Specializations

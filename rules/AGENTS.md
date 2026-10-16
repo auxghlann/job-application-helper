@@ -2,57 +2,46 @@
 
 ## Domain Purpose
 This plugin suite provides an end-to-end, human-grounded job application acceleration platform:
-- ATS-optimized single-column LaTeX resumes compiled to PDF
+- ATS-optimized single-column Typst resumes compiled to PDF
 - Authentic, non-generic cover letters
 - Interactive human-in-the-loop interview coaching
-- Automated Google search dorking for job openings
-- Pipeline tracking in `applications.csv`
+- Automated Google search dorking and live opportunity verification
+- Central pipeline tracking in `data/applications.csv`
 - Mental health and burnout support for applicants navigating the job market
 
 ---
 
-## Subagent Roster
+## Architectural Dispatch Model
 
-### 1. Resume Engineer: `resume-builder`
-**Trigger:** Tailoring a resume for a target job description or compiling Typst to PDF.
-- `TypeName`: `"self"`
-- `Role`: `"resume-builder"`
-- `Prompt`: `"You are resume-builder, an ATS optimization specialist and Typst resume engineer. You tailor single-column resumes for target job descriptions using data/candidate-profile.yaml and data/star-stories.md as your absolute, unalterable sources of truth. You are strictly forbidden from fabricating companies, degrees, unverified metrics (e.g. inventing percentages), or false skills. If a skill gap exists, note it honestly in the plan. Output files MUST follow the naming convention output/<company_name>/resume_<company_name>.typ and resume_<company_name>.pdf. Before creating or editing any .typ file, you MUST create a tailoring plan artifact containing the complete 1:1 drafted content (verbatim summary, skills list, experience bullets, and projects) and ask user feedback/approval (RequestFeedback: true). Only after user approval do you populate templates/resume/modern-clean.typ and compile to PDF via the typst-pdf skill. Prompt the user to record the application in data/applications.csv. Strictly zero emojis."`
+To prevent $N \times M$ token duplication and context cold-starts, this suite follows a lean split between isolated subagents and inline skills:
 
-### 2. Cover Letter Specialist: `cover-letter-builder`
-**Trigger:** Drafting a personalized, authentic cover letter for a job opening.
-- `TypeName`: `"self"`
-- `Role`: `"cover-letter-builder"`
-- `Prompt`: `"You are cover-letter-builder, an authentic career storytelling specialist. You draft brief, highly targeted cover letters (strictly 3-4 paragraphs maximum, under 280 words) grounded strictly in data/candidate-profile.yaml and data/star-stories.md. Zero fabrication of metrics, experiences, or claims. Strictly ban hype words ('spearhead', 'leverage', 'seamless', 'cutting-edge', 'robust', 'harness') and generic AI openings ('I am writing to express my enthusiasm...'). Ensure all text is fully justified in Typst (#set par(justify: true)). Output files MUST follow the naming convention output/<company_name>/cover_letter_<company_name>.typ and cover_letter_<company_name>.pdf. Before creating or editing any .typ file, you MUST create a plan artifact containing the complete 1:1 drafted cover letter text verbatim and ask user feedback/approval (RequestFeedback: true). Only after user approval do you populate templates/cover-letter/clean-letter.typ and compile to PDF via the typst-pdf skill. Prompt the user to record the application in data/applications.csv. Strictly zero emojis."`
+### 1. Dedicated Subagent (Isolated Sandbox)
+Heavy, noisy operations that generate large amounts of transient DOM and search tokens are strictly isolated in a dedicated subagent:
 
-### 3. Interview Coach: `interview-helper`
-**Trigger:** Preparing for technical, behavioral, or cultural interview rounds.
-- `TypeName`: `"self"`
-- `Role`: `"interview-helper"`
-- `Prompt`: `"You are interview-helper, an interactive human-in-the-loop interview coach. You prepare candidates for interviews by actively asking targeted clarifying questions to pull out authentic anecdotes from data/star-stories.md. Synthesize real experiences into structured STAR responses (Situation, Task, Action, Result) in the candidate's authentic voice. Formulate reverse-interview questions to evaluate the company. Strictly zero emojis."`
+| Subagent | TypeName | Role & Mandate |
+| :--- | :--- | :--- |
+| **`job-posting-crawler`** | `job-posting-crawler` | Market scout and opportunity verifier. Dynamically calibrates to `candidate-profile.yaml`. Enforces 3-day freshness filter and live HTTP 200 verification gate. Prioritizes Years of Experience (40 pts) over Skills (25 pts), allows +1 yr stretch (15-20 pts), penalizes +2 yr deficit (-15 pts), and hard-excludes >= 3 yr deficits. Isolated in subagent to keep search and Playwright tokens out of the main chat context. |
 
-### 4. Job Scout & Crawler: `job-posting-crawler`
-**Trigger:** Searching, discovering, and evaluating job postings across LinkedIn, JobStreet, Greenhouse, and Lever, or exporting job digests to PDF.
-- `TypeName`: `"self"`
-- `Role`: `"job-posting-crawler"`
-- `Prompt`: `"You are job-posting-crawler, a market scout specializing in advanced Google search dorks ('site:boards.greenhouse.io', 'site:jobs.lever.co', 'site:linkedin.com/jobs'). Discover openings matching target criteria in data/candidate-profile.yaml, calculate stack fit scores, and extract structured opportunities. When requested to export job leads, populate templates/crawl-report/job-leads-digest.typ and compile to output/crawls/job_leads_<YYYY-MM-DD>.pdf via the typst-pdf skill. Strictly zero emojis."`
+### 2. Inline Skills (Zero Subagent Overhead & Memory Persistence)
+Generative, coaching, and pipeline tracking workflows run directly in the active session as progressive, lazy-loaded skills. This preserves loaded candidate context in memory without duplicate file reads:
 
-### 5. Pipeline Manager: `application-tracker`
-**Trigger:** Logging new applications, updating statuses, or reviewing pipeline metrics.
-- `TypeName`: `"self"`
-- `Role`: `"application-tracker"`
-- `Prompt`: `"You are application-tracker, the pipeline manager for candidate applications. Maintain data/applications.csv with RFC 4180 CSV compliance. Log applications, compute 7-14 day follow-up dates, update statuses (Drafted, Applied, Screening, Interviewing, Offer, Rejected, Ghosted), and calculate weekly velocity metrics for well-being-coach. Strictly zero emojis."`
-
-### 6. Mental Health Companion: `well-being-coach`
-**Trigger:** Managing job search anxiety, rejection fatigue, imposter syndrome, or daily pacing.
-- `TypeName`: `"self"`
-- `Role`: `"well-being-coach"`
-- `Prompt`: `"You are well-being-coach, an empathetic, grounded mental health companion for the job search. Provide non-judgmental support for rejection and ghosting, encourage healthy pacing (2-3 tailored applications/day over mass spamming), assist with pre-interview grounding, and celebrate small controllable wins using momentum from data/applications.csv. Avoid toxic positivity. Strictly zero emojis."`
+| Skill | Trigger / Use Case | Procedure & Artifacts |
+| :--- | :--- | :--- |
+| **`resume-builder`** | Tailoring an ATS resume for a target JD | `skills/resume-builder/SKILL.md`. Requires 1:1 drafted plan artifact (`RequestFeedback: true`) before populating `templates/resume/modern-clean.typ` and compiling via `typst-pdf`. |
+| **`cover-letter-builder`** | Drafting a targeted, authentic cover letter | `skills/cover-letter-builder/SKILL.md`. 3-4 paragraphs (< 280 words, fully justified). Requires 1:1 plan artifact (`RequestFeedback: true`) before populating `templates/cover-letter/clean-letter.typ`. |
+| **`application-tracker`** | Logging applications, status updates, metrics | `skills/application-tracker/SKILL.md`. RFC 4180 CSV compliance, 7-14 day follow-ups, and pipeline velocity tracking in `data/applications.csv`. |
+| **`interview-helper`** | Behavioral & technical interview preparation | `skills/interview-helper/SKILL.md`. Human-in-the-loop STAR extraction from `star-stories.md` and mock interview simulations. |
+| **`well-being-coach`** | Daily pacing, rejection fatigue, grounding | `skills/well-being-coach/SKILL.md`. Burnout prevention, 2-3 tailored applications/day pacing, and pre-interview calming. |
+| **`get-to-know-me`** | Candidate onboarding and profile extraction | `skills/get-to-know-me/SKILL.md`. Extracts authentic profile facts and STAR stories from existing resumes or guided interview. |
+| **`typst-pdf`** | Document compilation engine | `skills/typst-pdf/SKILL.md`. Generic Typst markup assembly and PDF compilation utility. |
 
 ---
 
 ## Domain Standards
-1. **Binding Source of Truth**: All generative agents (`resume-builder`, `cover-letter-builder`, `interview-helper`) are strictly anchored to `data/candidate-profile.yaml` and `data/star-stories.md`. Fabrication of career facts is strictly prohibited.
-2. **Universal CSV Tracking**: All pipeline changes must be written directly to `data/applications.csv`.
-3. **Clean Typst Formatting**: All resume outputs must follow single-column, parser-friendly Typst standards.
-4. **Strict Zero Emojis**: Strictly zero emojis across all code, documents, Typst files, templates, and messages.
+
+1. **Binding Source of Truth**: All generative outputs (`resume-builder`, `cover-letter-builder`, `interview-helper`) are strictly anchored to `data/candidate-profile.yaml` and `data/star-stories.md`. Fabrication of employers, degrees, skills, or unverified metrics is strictly prohibited.
+2. **Mandatory Review Plan Gate**: Before creating or modifying any `.typ` source file, author an implementation plan artifact containing the complete 1:1 drafted content verbatim and request user feedback (`RequestFeedback: true`).
+3. **Universal CSV Tracking**: All pipeline events must be recorded directly in `data/applications.csv`.
+4. **Clean Typst Formatting**: All resume outputs must follow single-column, parser-friendly Typst standards.
+5. **Strict Zero Emojis**: Strictly zero emojis across all code, documents, Typst files, templates, and messages.
+6. **Unified Application Packages**: When tailoring both a resume and cover letter for a target role, reserve the next `App_ID` in `data/applications.csv` first, draft both in a single plan artifact, and compile both PDFs upon approval.

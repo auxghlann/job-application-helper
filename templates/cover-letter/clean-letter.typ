@@ -21,7 +21,7 @@
 #v(4pt)
 #text(size: 9pt, fill: rgb("#4b5563"))[
   CANDIDATE_LOCATION | 
-  #link("mailto:CANDIDATE_EMAIL") | 
+  #link("mailto:CANDIDATE_EMAIL")[CANDIDATE_EMAIL_DISPLAY] | 
   CANDIDATE_PHONE | 
   #link("CANDIDATE_LINKEDIN")[LinkedIn] | 
   #link("CANDIDATE_GITHUB")[GitHub]

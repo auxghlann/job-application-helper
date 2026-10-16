@@ -28,7 +28,7 @@ Typst is a fast, lightweight modern CLI markup compiler.
 To compile any `.typ` source file to PDF, use the bundled compilation script:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "job-application-helper/skills/typst-pdf/scripts/compile.ps1" -TypstFile "<path/to/source.typ>" -OutputFile "<path/to/target.pdf>"
+powershell -ExecutionPolicy Bypass -File "skills/typst-pdf/scripts/compile.ps1" -TypstFile "<path/to/source.typ>" -OutputFile "<path/to/target.pdf>"
 ```
 
 - If `-OutputFile` is omitted, the script automatically writes `<source_basename>.pdf` alongside the source file.

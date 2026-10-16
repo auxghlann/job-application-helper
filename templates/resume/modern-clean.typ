@@ -1,27 +1,27 @@
 // Modern Clean ATS-Optimized Resume Template
-// Single-column layout for high ATS parser fidelity
+// Single-column layout engineered for strict 1-page geometry and high ATS parser fidelity
 
 #set page(
   paper: "a4",
-  margin: (x: 1.5cm, top: 1.5cm, bottom: 1.5cm),
+  margin: (x: 1.35cm, top: 0.8cm, bottom: 0.8cm),
 )
 
 #set text(
   font: ("Segoe UI", "Arial"),
-  size: 10pt,
+  size: 8.8pt,
   fill: rgb("#111827"),
   lang: "en",
 )
 
-#set par(justify: false, leading: 0.55em)
+#set par(justify: false, leading: 0.45em)
 
-// Styles
+// Style definitions
 #let section-title(title) = {
-  v(8pt)
-  text(weight: "bold", size: 11pt, upper(title))
-  v(-3pt)
-  line(length: 100%, stroke: 0.6pt + rgb("#d1d5db"))
-  v(2pt)
+  v(3.5pt)
+  text(weight: "bold", size: 9.8pt, upper(title))
+  v(-3.5pt)
+  line(length: 100%, stroke: 0.5pt + rgb("#d1d5db"))
+  v(1.5pt)
 }
 
 #let exp-entry(title: "", company: "", location: "", date: "", bullets: ()) = {
@@ -29,53 +29,53 @@
     #grid(
       columns: (1fr, auto),
       text(weight: "bold")[#title] + text(fill: rgb("#4b5563"))[ --- #company],
-      text(fill: rgb("#4b5563"), size: 9pt)[#date],
+      text(fill: rgb("#4b5563"), size: 8.3pt)[#date],
     )
     #if location != "" [
-      #v(-2pt)
-      #text(size: 8.5pt, fill: rgb("#6b7280"), style: "italic")[#location]
+      #v(-2.5pt)
+      #text(size: 7.8pt, fill: rgb("#6b7280"), style: "italic")[#location]
     ]
-    #v(1pt)
+    #v(0.5pt)
     #list(
       marker: [•],
-      spacing: 5pt,
+      spacing: 2.2pt,
       ..bullets
     )
-    #v(3pt)
+    #v(1.5pt)
   ]
 }
 
-#let project-entry(name: "", url: "", date: "", bullets: ()) = {
+#let project-entry(name: "", stack: "", date: "", bullets: ()) = {
   block(width: 100%, breakable: false)[
     #grid(
       columns: (1fr, auto),
       [
         #text(weight: "bold")[#name]
-        #if url != "" [
-          #text(size: 8.5pt)[ (#link(url)[#url])]
+        #if stack != "" [
+          #text(size: 7.8pt, fill: rgb("#4b5563"))[ (#stack)]
         ]
       ],
-      text(fill: rgb("#4b5563"), size: 9pt)[#date],
+      text(fill: rgb("#4b5563"), size: 8.3pt)[#date],
     )
-    #v(1pt)
+    #v(0.5pt)
     #list(
       marker: [•],
-      spacing: 5pt,
+      spacing: 2.2pt,
       ..bullets
     )
-    #v(3pt)
+    #v(1.5pt)
   ]
 }
 
 // Header
 #align(center)[
-  #text(size: 20pt, weight: "bold")[NAME_PLACEHOLDER] \
-  #v(2pt)
-  #text(size: 11pt, weight: "medium", fill: rgb("#374151"))[TITLE_PLACEHOLDER] \
-  #v(3pt)
-  #text(size: 9pt, fill: rgb("#4b5563"))[
+  #text(size: 18pt, weight: "bold")[NAME_PLACEHOLDER] \
+  #v(1.5pt)
+  #text(size: 10pt, weight: "medium", fill: rgb("#374151"))[TITLE_PLACEHOLDER] \
+  #v(2.5pt)
+  #text(size: 8.5pt, fill: rgb("#4b5563"))[
     LOCATION_PLACEHOLDER | 
-    #link("mailto:EMAIL_PLACEHOLDER") | 
+    #link("mailto:EMAIL_PLACEHOLDER")[EMAIL_DISPLAY_PLACEHOLDER] | 
     PHONE_PLACEHOLDER | 
     #link("LINKEDIN_URL_PLACEHOLDER")[LinkedIn] | 
     #link("GITHUB_URL_PLACEHOLDER")[GitHub]
@@ -91,7 +91,7 @@ SUMMARY_PLACEHOLDER
 #grid(
   columns: (auto, 1fr),
   column-gutter: 8pt,
-  row-gutter: 4pt,
+  row-gutter: 3pt,
   [*Languages:*], [LANGUAGES_PLACEHOLDER],
   [*Frameworks & Libraries:*], [FRAMEWORKS_PLACEHOLDER],
   [*Tools & Platforms:*], [TOOLS_PLACEHOLDER],
@@ -109,3 +109,7 @@ PROJECTS_BLOCK_PLACEHOLDER
 // Education
 #section-title("Education")
 EDUCATION_BLOCK_PLACEHOLDER
+
+// Certifications & Training
+#section-title("Certifications & Training")
+CERTIFICATIONS_BLOCK_PLACEHOLDER

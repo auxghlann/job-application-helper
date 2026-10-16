@@ -1,2 +1,2 @@
-Company,Role,Job_URL,Status,Applied_Date,Follow_Up_Date,Contact_Name,Contact_Email,Notes
-Example Corp,Software Engineer,https://example.com/jobs/1,Drafted,2026-10-12,2026-10-19,Recruiter,recruiter@example.com,Initial draft created
+ID,Date_Applied,Company,Role,Location,Work_Type,Status,Salary_Range,Source,Job_URL,Resume_Path,Cover_Letter_Path,Follow_Up_Date
+APP-001,15/10/2026,Example Corp,Software Engineer,"Metro Manila, Philippines",Hybrid,Applied,"PHP 45,000 - PHP 65,000",JobStreet,https://example.com/jobs/1,output/applications/APP-001_example/resume_example.pdf,output/applications/APP-001_example/cover_letter_example.pdf,22/10/2026
